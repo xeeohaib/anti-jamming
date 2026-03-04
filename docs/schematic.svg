@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 700" width="860" height="700" font-family="monospace, Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="860" height="700" fill="#ffffff" rx="8" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="430" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a2e">ZC702 ↔ ADAR1000 Connection Schematic</text>
+  <text x="430" y="54" text-anchor="middle" font-size="12" fill="#555">Anti-Jamming Null Steering System — SPI Wiring (PMOD JA1 J55 → ADAR1000)</text>
+
+  <!-- ══════════════ Left Block: ZC702 PS/PL ══════════════ -->
+  <rect x="30" y="70" width="240" height="540" rx="8" fill="#f0fff4" stroke="#2d8a4e" stroke-width="2"/>
+  <text x="150" y="92" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a5c30">ZC702 (Zynq-7000)</text>
+  <text x="150" y="108" text-anchor="middle" font-size="10" fill="#2d8a4e">XC7Z020-CLG484-1</text>
+
+  <!-- PS block -->
+  <rect x="50" y="120" width="200" height="100" rx="5" fill="#c8f5d8" stroke="#2d8a4e" stroke-width="1.5"/>
+  <text x="150" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a5c30">PS — ARM Cortex-A9</text>
+  <text x="150" y="158" text-anchor="middle" font-size="9" fill="#2d8a4e">main.c control loop</text>
+  <text x="150" y="172" text-anchor="middle" font-size="9" fill="#2d8a4e">MVDR algorithm</text>
+  <text x="150" y="186" text-anchor="middle" font-size="9" fill="#2d8a4e">jammer_detect.c</text>
+  <text x="150" y="200" text-anchor="middle" font-size="9" fill="#2d8a4e">doa_estimation.c</text>
+  <text x="150" y="214" text-anchor="middle" font-size="9" fill="#2d8a4e">adar1000_driver.c</text>
+
+  <!-- AXI bus arrow PS → PL -->
+  <line x1="150" y1="220" x2="150" y2="248" stroke="#2d8a4e" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <text x="160" y="240" font-size="8" fill="#2d8a4e">AXI4-Lite</text>
+
+  <!-- PL block -->
+  <rect x="50" y="250" width="200" height="140" rx="5" fill="#c8f5d8" stroke="#2d8a4e" stroke-width="1.5"/>
+  <text x="150" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a5c30">PL — FPGA Fabric</text>
+  <text x="150" y="286" text-anchor="middle" font-size="9" fill="#2d8a4e">signal_acquisition.v</text>
+  <text x="150" y="300" text-anchor="middle" font-size="9" fill="#2d8a4e">covariance_matrix.v</text>
+  <text x="150" y="314" text-anchor="middle" font-size="9" fill="#2d8a4e">matrix_inverse.v</text>
+  <text x="150" y="328" text-anchor="middle" font-size="9" fill="#2d8a4e">weight_compute.v</text>
+  <text x="150" y="342" text-anchor="middle" font-size="9" fill="#2d8a4e">beam_apply.v</text>
+  <text x="150" y="356" text-anchor="middle" font-size="9" fill="#2d8a4e">adar1000_spi.v  ◀── SPI Master</text>
+  <text x="150" y="376" text-anchor="middle" font-size="9" fill="#2d8a4e">axi_lite_slave.v</text>
+
+  <!-- PMOD JA1 / J55 header -->
+  <rect x="50" y="415" width="200" height="170" rx="5" fill="#e8f5fe" stroke="#2255aa" stroke-width="2"/>
+  <text x="150" y="434" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a3a7a">PMOD JA1 Connector (J55)</text>
+
+  <!-- pin table headers -->
+  <text x="75" y="452" font-size="9" font-weight="bold" fill="#333">Pin</text>
+  <text x="110" y="452" font-size="9" font-weight="bold" fill="#333">Signal</text>
+  <text x="175" y="452" font-size="9" font-weight="bold" fill="#333">Direction</text>
+
+  <!-- pin rows with color -->
+  <!-- Pin 1 CSN -->
+  <rect x="60" y="458" width="180" height="16" rx="2" fill="#fff0f0"/>
+  <text x="75" y="470" font-size="9" fill="#cc0000">1</text>
+  <text x="110" y="470" font-size="9" fill="#cc0000">SPI_CSN</text>
+  <text x="175" y="470" font-size="9" fill="#cc0000">OUT →</text>
+  <circle cx="242" cy="466" r="5" fill="#ff4444" stroke="#cc0000" stroke-width="1.5"/>
+
+  <!-- Pin 2 CLK -->
+  <rect x="60" y="474" width="180" height="16" rx="2" fill="#fff8e8"/>
+  <text x="75" y="486" font-size="9" fill="#aa6600">2</text>
+  <text x="110" y="486" font-size="9" fill="#aa6600">SPI_CLK</text>
+  <text x="175" y="486" font-size="9" fill="#aa6600">OUT →</text>
+  <circle cx="242" cy="482" r="5" fill="#ffaa00" stroke="#aa6600" stroke-width="1.5"/>
+
+  <!-- Pin 3 MOSI -->
+  <rect x="60" y="490" width="180" height="16" rx="2" fill="#f0fff0"/>
+  <text x="75" y="502" font-size="9" fill="#007700">3</text>
+  <text x="110" y="502" font-size="9" fill="#007700">SPI_MOSI</text>
+  <text x="175" y="502" font-size="9" fill="#007700">OUT →</text>
+  <circle cx="242" cy="498" r="5" fill="#22bb22" stroke="#007700" stroke-width="1.5"/>
+
+  <!-- Pin 4 MISO -->
+  <rect x="60" y="506" width="180" height="16" rx="2" fill="#f0f4ff"/>
+  <text x="75" y="518" font-size="9" fill="#0044bb">4</text>
+  <text x="110" y="518" font-size="9" fill="#0044bb">SPI_MISO</text>
+  <text x="175" y="518" font-size="9" fill="#0044bb">← IN</text>
+  <circle cx="242" cy="514" r="5" fill="#2288ff" stroke="#0044bb" stroke-width="1.5"/>
+
+  <!-- Pin 5 GND -->
+  <rect x="60" y="522" width="180" height="16" rx="2" fill="#f5f5f5"/>
+  <text x="75" y="534" font-size="9" fill="#555">5</text>
+  <text x="110" y="534" font-size="9" fill="#555">GND</text>
+  <text x="175" y="534" font-size="9" fill="#555">PWR</text>
+  <circle cx="242" cy="530" r="5" fill="#999999" stroke="#444" stroke-width="1.5"/>
+
+  <!-- Pin 6 3.3V -->
+  <rect x="60" y="538" width="180" height="16" rx="2" fill="#fffbe0"/>
+  <text x="75" y="550" font-size="9" fill="#886600">6</text>
+  <text x="110" y="550" font-size="9" fill="#886600">3.3V</text>
+  <text x="175" y="550" font-size="9" fill="#886600">PWR →</text>
+  <circle cx="242" cy="546" r="5" fill="#ffdd00" stroke="#886600" stroke-width="1.5"/>
+
+  <!-- SPI arrow from PL to PMOD -->
+  <line x1="150" y1="393" x2="150" y2="413" stroke="#2d8a4e" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+  <!-- ══════════════ Jumper Wires (center) ══════════════ -->
+  <!-- CSN wire red -->
+  <line x1="247" y1="466" x2="613" y2="466" stroke="#ff4444" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- CLK wire orange -->
+  <line x1="247" y1="482" x2="613" y2="482" stroke="#ffaa00" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- MOSI wire green -->
+  <line x1="247" y1="498" x2="613" y2="498" stroke="#22bb22" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- MISO wire blue -->
+  <line x1="247" y1="514" x2="613" y2="514" stroke="#2288ff" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- GND wire grey -->
+  <line x1="247" y1="530" x2="613" y2="530" stroke="#999999" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- 3.3V wire yellow -->
+  <line x1="247" y1="546" x2="613" y2="546" stroke="#ddaa00" stroke-width="2.5" stroke-dasharray="10,5"/>
+
+  <!-- wire labels in center -->
+  <rect x="340" y="455" width="180" height="102" rx="5" fill="#f9f9f9" stroke="#aaa" stroke-width="1"/>
+  <text x="430" y="469" text-anchor="middle" font-size="8.5" font-weight="bold" fill="#333">Jumper Wires</text>
+  <text x="430" y="483" text-anchor="middle" font-size="8" fill="#cc0000">— SPI_CSN (/CS)</text>
+  <text x="430" y="496" text-anchor="middle" font-size="8" fill="#aa6600">— SPI_CLK (SCLK)</text>
+  <text x="430" y="509" text-anchor="middle" font-size="8" fill="#007700">— SPI_MOSI (SDIO)</text>
+  <text x="430" y="522" text-anchor="middle" font-size="8" fill="#0044bb">— SPI_MISO (SDO)</text>
+  <text x="430" y="535" text-anchor="middle" font-size="8" fill="#555">— GND</text>
+  <text x="430" y="548" text-anchor="middle" font-size="8" fill="#886600">— 3.3V Power</text>
+
+  <!-- ══════════════ Right Block: ADAR1000 Board ══════════════ -->
+  <rect x="590" y="70" width="240" height="540" rx="8" fill="#f0f4ff" stroke="#2244aa" stroke-width="2"/>
+  <text x="710" y="92" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a2a6b">ADAR1000 Eval Board</text>
+  <text x="710" y="108" text-anchor="middle" font-size="10" fill="#2244aa">Analog Devices ADAR1000BCBZ</text>
+
+  <!-- SPI interface block on ADAR1000 -->
+  <rect x="610" y="120" width="200" height="120" rx="5" fill="#dde8ff" stroke="#2244aa" stroke-width="1.5"/>
+  <text x="710" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2a6b">SPI Interface</text>
+  <text x="710" y="156" text-anchor="middle" font-size="9" fill="#2244aa">3-wire + CS, up to 25 MHz</text>
+  <text x="710" y="170" text-anchor="middle" font-size="9" fill="#2244aa">16-bit transfers</text>
+  <text x="710" y="184" text-anchor="middle" font-size="9" fill="#2244aa">7-bit address space</text>
+  <text x="710" y="198" text-anchor="middle" font-size="9" fill="#2244aa">Phase registers (7-bit)</text>
+  <text x="710" y="212" text-anchor="middle" font-size="9" fill="#2244aa">Gain registers (7-bit)</text>
+  <text x="710" y="226" text-anchor="middle" font-size="9" fill="#2244aa">Bias / config registers</text>
+
+  <!-- SPI arrow → beamformer core -->
+  <line x1="710" y1="240" x2="710" y2="268" stroke="#2244aa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- Beamformer core on ADAR1000 -->
+  <rect x="610" y="270" width="200" height="120" rx="5" fill="#dde8ff" stroke="#2244aa" stroke-width="1.5"/>
+  <text x="710" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2a6b">Beamformer Core</text>
+  <text x="710" y="308" text-anchor="middle" font-size="9" fill="#2244aa">4-channel phase shifter</text>
+  <text x="710" y="322" text-anchor="middle" font-size="9" fill="#2244aa">4-channel VGA</text>
+  <text x="710" y="336" text-anchor="middle" font-size="9" fill="#2244aa">Receive / Transmit mode</text>
+  <text x="710" y="350" text-anchor="middle" font-size="9" fill="#2244aa">X/Ku-band 8–16 GHz</text>
+  <text x="710" y="364" text-anchor="middle" font-size="9" fill="#2244aa">Integrated T/R switch</text>
+  <text x="710" y="378" text-anchor="middle" font-size="9" fill="#2244aa">LNA + PA per channel</text>
+
+  <!-- SPI header pins on ADAR1000 (left side) -->
+  <rect x="610" y="415" width="200" height="170" rx="5" fill="#e8eeff" stroke="#2244aa" stroke-width="2"/>
+  <text x="710" y="434" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2a6b">SPI Header (P1)</text>
+
+  <text x="635" y="452" font-size="9" font-weight="bold" fill="#333">Pin</text>
+  <text x="670" y="452" font-size="9" font-weight="bold" fill="#333">Net</text>
+  <text x="740" y="452" font-size="9" font-weight="bold" fill="#333">IC Pin</text>
+
+  <!-- Pin 1 ~CS -->
+  <rect x="620" y="458" width="180" height="16" rx="2" fill="#fff0f0"/>
+  <circle cx="618" cy="466" r="5" fill="#ff4444" stroke="#cc0000" stroke-width="1.5"/>
+  <text x="635" y="470" font-size="9" fill="#cc0000">1</text>
+  <text x="670" y="470" font-size="9" fill="#cc0000">~CS</text>
+  <text x="740" y="470" font-size="9" fill="#cc0000">CSB (pin 3)</text>
+
+  <!-- Pin 2 SCLK -->
+  <rect x="620" y="474" width="180" height="16" rx="2" fill="#fff8e8"/>
+  <circle cx="618" cy="482" r="5" fill="#ffaa00" stroke="#aa6600" stroke-width="1.5"/>
+  <text x="635" y="486" font-size="9" fill="#aa6600">2</text>
+  <text x="670" y="486" font-size="9" fill="#aa6600">SCLK</text>
+  <text x="740" y="486" font-size="9" fill="#aa6600">SCLK (pin 5)</text>
+
+  <!-- Pin 3 SDIO -->
+  <rect x="620" y="490" width="180" height="16" rx="2" fill="#f0fff0"/>
+  <circle cx="618" cy="498" r="5" fill="#22bb22" stroke="#007700" stroke-width="1.5"/>
+  <text x="635" y="502" font-size="9" fill="#007700">3</text>
+  <text x="670" y="502" font-size="9" fill="#007700">SDIO</text>
+  <text x="740" y="502" font-size="9" fill="#007700">SDIO (pin 4)</text>
+
+  <!-- Pin 4 SDO -->
+  <rect x="620" y="506" width="180" height="16" rx="2" fill="#f0f4ff"/>
+  <circle cx="618" cy="514" r="5" fill="#2288ff" stroke="#0044bb" stroke-width="1.5"/>
+  <text x="635" y="518" font-size="9" fill="#0044bb">4</text>
+  <text x="670" y="518" font-size="9" fill="#0044bb">SDO</text>
+  <text x="740" y="518" font-size="9" fill="#0044bb">SDO (pin 2)</text>
+
+  <!-- Pin 5 GND -->
+  <rect x="620" y="522" width="180" height="16" rx="2" fill="#f5f5f5"/>
+  <circle cx="618" cy="530" r="5" fill="#999999" stroke="#444" stroke-width="1.5"/>
+  <text x="635" y="534" font-size="9" fill="#555">5</text>
+  <text x="670" y="534" font-size="9" fill="#555">GND</text>
+  <text x="740" y="534" font-size="9" fill="#555">AGND / DGND</text>
+
+  <!-- Pin 6 VCC -->
+  <rect x="620" y="538" width="180" height="16" rx="2" fill="#fffbe0"/>
+  <circle cx="618" cy="546" r="5" fill="#ffdd00" stroke="#886600" stroke-width="1.5"/>
+  <text x="635" y="550" font-size="9" fill="#886600">6</text>
+  <text x="670" y="550" font-size="9" fill="#886600">VCC</text>
+  <text x="740" y="550" font-size="9" fill="#886600">VDD (3.3V)</text>
+
+  <!-- ══════════════ ADC / Antenna paths (bottom) ══════════════ -->
+  <rect x="30" y="625" width="800" height="60" rx="6" fill="#f9f9f9" stroke="#888" stroke-width="1"/>
+  <text x="430" y="643" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">ADC Interface (FMC LPC J64) — 4-Channel Antenna Array</text>
+  <text x="430" y="660" text-anchor="middle" font-size="9" fill="#555">ADAR1000 CH0–CH3 RF ports → 4-element ULA (λ/2 spacing) → FMC LA00–LA11 LVDS → ZC702 signal_acquisition.v</text>
+  <text x="430" y="674" text-anchor="middle" font-size="9" fill="#888">See constraints/zc702_pins.xdc for full FMC pin assignments</text>
+
+  <!-- connector lines from PMOD to note -->
+  <line x1="150" y1="580" x2="150" y2="620" stroke="#2d8a4e" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="710" y1="580" x2="710" y2="620" stroke="#2244aa" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="150" y1="620" x2="710" y2="620" stroke="#888" stroke-width="1"/>
+  <polygon points="430,620 425,613 435,613" fill="#888"/>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2d8a4e"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2244aa"/>
+    </marker>
+  </defs>
+</svg>

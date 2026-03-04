@@ -104,6 +104,22 @@ anti-jamming/
 | Antenna Array | 4-element ULA (half-wavelength spacing at carrier) |
 | ADC | FMC-connected ADC with parallel LVDS/LVCMOS output |
 
+### Hardware Connection Diagram
+
+The diagram below shows the ZC702 and ADAR1000 evaluation boards side-by-side
+with the six colour-coded jumper wires connecting PMOD JA1 (J55) to the
+ADAR1000 SPI header.
+
+![ZC702 ↔ ADAR1000 board connection diagram](docs/zc702_adar1000_connection.svg)
+
+### Wiring Schematic
+
+The schematic below details the signal names, pin numbers, direction, and
+corresponding IC pins for every connection between the ZC702 and the
+ADAR1000 evaluation board.
+
+![ZC702 ↔ ADAR1000 schematic diagram](docs/schematic.svg)
+
 ### ADAR1000 Connections (ZC702 PMOD JA1, J55)
 
 | PMOD Pin | Signal | ADAR1000 Pin |
