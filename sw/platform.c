@@ -204,6 +204,11 @@ void platform_delay_ms(uint32_t ms)
 #endif
 }
 
+void platform_gpio_ctrl(uint32_t mask)
+{
+    axi_write(NULL_STEERING_BASEADDR, REG_GPIO_CTRL, mask & 0xFU);
+}
+
 void platform_print(const char *fmt, ...)
 {
     va_list args;

@@ -37,6 +37,8 @@
 #define REG_W3_RE                   0x38
 #define REG_W3_IM                   0x3C
 #define REG_VERSION                 0x40
+/** GPIO control register — ADAR1000 P3 connector GPIO lines */
+#define REG_GPIO_CTRL               0x44
 
 /** Control register bit positions */
 #define CTRL_START_CAPTURE          (1 << 0)
@@ -52,6 +54,12 @@
 #define STATUS_WEIGHTS_VALID        (1 << 3)
 #define STATUS_BUSY                 (1 << 4)
 #define STATUS_SINGULAR             (1 << 5)
+
+/** GPIO_CTRL register bit positions (AXI offset 0x44, ADAR1000 P3 connector) */
+#define GPIO_RX_LOAD                (1 << 0)   /**< P3-1 GPIO0: load RX beam registers */
+#define GPIO_TX_LOAD                (1 << 1)   /**< P3-3 GPIO1: load TX beam registers */
+#define GPIO_TR                     (1 << 2)   /**< P3-5 GPIO4: 1=transmit, 0=receive */
+#define GPIO_PA_ON                  (1 << 3)   /**< P3-7 GPIO5: power amplifier enable */
 
 /** SPI control register encoding */
 #define SPI_CTRL_START              (1 << 0)
@@ -185,6 +193,21 @@ int platform_spi_write(uint8_t addr, uint8_t data);
  * @return        0 on success, -1 on timeout
  */
 int platform_spi_read(uint8_t addr, uint8_t *data);
+
+/**
+ * @brief Set ADAR1000 P3 GPIO control signals.
+ *
+ * Controls the four GPIO lines on the ADAR1000 P3 connector:
+ *   - GPIO0/RX_LOAD (bit 0): pulse high to latch RX beam registers
+ *   - GPIO1/TX_LOAD (bit 1): pulse high to latch TX beam registers
+ *   - GPIO4/TR      (bit 2): 1 = transmit mode, 0 = receive mode
+ *   - GPIO5/PA_ON   (bit 3): 1 = power amplifier enabled
+ *
+ * Use the GPIO_RX_LOAD, GPIO_TX_LOAD, GPIO_TR, GPIO_PA_ON masks.
+ *
+ * @param mask  Bitmask of GPIO signals to assert (GPIO_* constants)
+ */
+void platform_gpio_ctrl(uint32_t mask);
 
 /**
  * @brief Millisecond delay.

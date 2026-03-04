@@ -41,11 +41,17 @@ module top_null_steering #(
     output wire [OUT_WIDTH-1:0]    beam_out_q,
     output wire                    beam_out_valid,
 
-    // SPI to ADAR1000
-    output wire                    spi_csn,
-    output wire                    spi_clk,
-    output wire                    spi_mosi,
-    input  wire                    spi_miso,
+    // SPI to ADAR1000 (P3 connector, ZC702 J62/J63 PMOD)
+    output wire                    spi_csn,   // P3-2  SPI_SEL_A  → J62-2
+    output wire                    spi_clk,   // P3-8  SPI_CLK    → J63-2
+    output wire                    spi_mosi,  // P3-4  SPI_MOSI   → J62-4
+    input  wire                    spi_miso,  // P3-6  SPI_MISO   → J62-6
+
+    // ADAR1000 P3 GPIO control signals (ZC702 J62/J63 PMOD)
+    output wire                    gpio0_rx_load,  // P3-1  GPIO0 RX_LOAD → J62-1
+    output wire                    gpio1_tx_load,  // P3-3  GPIO1 TX_LOAD → J62-3
+    output wire                    gpio4_tr,       // P3-5  GPIO4 TR      → J62-5
+    output wire                    gpio5_pa_on,    // P3-7  GPIO5 PA_ON   → J63-1
 
     // AXI4-Lite slave interface (from Zynq PS)
     input  wire        s_axi_aclk,
@@ -113,6 +119,9 @@ module top_null_steering #(
     wire [COV_WIDTH-1:0] w_im [0:3];
     wire                        weight_valid;
 
+    // GPIO control from AXI: drives P3 connector GPIO signals
+    wire [3:0] gpio_ctrl_from_axi;
+
     // Steering vector (generated from steer_angle register)
     // For simplicity, use pre-computed unit steering vector from PS via AXI
     // PS writes steer_re/im as weight outputs; default: broadside (all ones)
@@ -176,6 +185,7 @@ module top_null_steering #(
         .spi_rw              (spi_rw_from_axi),
         .spi_addr            (spi_addr_from_axi),
         .spi_wdata           (spi_wdata_from_axi),
+        .gpio_ctrl           (gpio_ctrl_from_axi),
         .status_capture_done (status_capture_done),
         .status_cov_valid    (status_cov_valid),
         .status_inv_valid    (status_inv_valid),
@@ -325,5 +335,20 @@ module top_null_steering #(
 
     // weight_valid is an alias used here
     assign weight_valid = status_weights_valid;
+
+    // =========================================================================
+    // ADAR1000 P3 GPIO Control Outputs (driven by AXI GPIO_CTRL register)
+    // Connector P3 pinout:
+    //   P3-1 GPIO0/RX_LOAD → ZC702 J62-1   P3-2 SPI_SEL_A → ZC702 J62-2
+    //   P3-3 GPIO1/TX_LOAD → ZC702 J62-3   P3-4 SPI_MOSI  → ZC702 J62-4
+    //   P3-5 GPIO4/TR      → ZC702 J62-5   P3-6 SPI_MISO  → ZC702 J62-6
+    //   P3-7 GPIO5/PA_ON   → ZC702 J63-1   P3-8 SPI_CLK   → ZC702 J63-2
+    //   P3-9  AGND                          P3-10 AGND
+    //   P3-11 NC                            P3-12 NC
+    // =========================================================================
+    assign gpio0_rx_load = gpio_ctrl_from_axi[0];
+    assign gpio1_tx_load = gpio_ctrl_from_axi[1];
+    assign gpio4_tr      = gpio_ctrl_from_axi[2];
+    assign gpio5_pa_on   = gpio_ctrl_from_axi[3];
 
 endmodule

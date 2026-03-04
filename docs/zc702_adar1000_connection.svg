@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" width="960" height="680" font-family="monospace, Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="960" height="680" fill="#f5f7fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a2e">ZC702 ↔ ADAR1000 Hardware Connection Diagram</text>
+  <text x="480" y="55" text-anchor="middle" font-size="12" fill="#555">ZC702 PMOD J62 (P3 top row) and J63 (P3 bottom row) → ADAR1000 P3 Peripheral Module-Compatible Interface</text>
+
+  <!-- ═══════════════════ ZC702 Board ═══════════════════ -->
+  <rect x="30" y="70" width="300" height="560" rx="12" fill="#1a6b3c" stroke="#0d4a2a" stroke-width="3"/>
+  <text x="180" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Xilinx ZC702</text>
+  <text x="180" y="112" text-anchor="middle" font-size="11" fill="#aaffaa">Zynq-7000 XC7Z020-CLG484</text>
+
+  <!-- FPGA chip -->
+  <rect x="80" y="128" width="180" height="110" rx="5" fill="#0d3d24" stroke="#5dba7c" stroke-width="1.5"/>
+  <text x="170" y="176" text-anchor="middle" font-size="11" fill="#5dba7c">FPGA XC7Z020</text>
+  <text x="170" y="192" text-anchor="middle" font-size="9" fill="#88cc99">adar1000_spi.v (PL)</text>
+  <text x="170" y="206" text-anchor="middle" font-size="9" fill="#88cc99">axi_lite_slave.v</text>
+  <text x="170" y="220" text-anchor="middle" font-size="9" fill="#88cc99">gpio_ctrl [3:0]</text>
+
+  <!-- J62 connector block -->
+  <rect x="268" y="260" width="54" height="230" rx="4" fill="#2a2a4a" stroke="#8888ee" stroke-width="2"/>
+  <text x="295" y="278" text-anchor="middle" font-size="9" font-weight="bold" fill="#ccccff">PMOD</text>
+  <text x="295" y="291" text-anchor="middle" font-size="9" fill="#ccccff">J62</text>
+  <text x="295" y="303" text-anchor="middle" font-size="8" fill="#8888bb">Bank 13</text>
+
+  <!-- J62 pin dots (right side for wires) -->
+  <!-- J62-1: GPIO0/RX_LOAD -->
+  <circle cx="322" cy="320" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="262" y="324" text-anchor="middle" font-size="7.5" fill="#ffcc88">1 RX_LOAD</text>
+  <!-- J62-2: SPI_SEL_A -->
+  <circle cx="322" cy="340" r="5" fill="#ff4444" stroke="#cc0000" stroke-width="1.5"/>
+  <text x="262" y="344" text-anchor="middle" font-size="7.5" fill="#ffaaaa">2 SEL_A</text>
+  <!-- J62-3: GPIO1/TX_LOAD -->
+  <circle cx="322" cy="360" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="262" y="364" text-anchor="middle" font-size="7.5" fill="#ffcc88">3 TX_LOAD</text>
+  <!-- J62-4: SPI_MOSI -->
+  <circle cx="322" cy="380" r="5" fill="#33cc33" stroke="#007700" stroke-width="1.5"/>
+  <text x="262" y="384" text-anchor="middle" font-size="7.5" fill="#88ff88">4 MOSI</text>
+  <!-- J62-5: GPIO4/TR -->
+  <circle cx="322" cy="400" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="262" y="404" text-anchor="middle" font-size="7.5" fill="#ffcc88">5 TR</text>
+  <!-- J62-6: SPI_MISO -->
+  <circle cx="322" cy="420" r="5" fill="#3399ff" stroke="#0055cc" stroke-width="1.5"/>
+  <text x="262" y="424" text-anchor="middle" font-size="7.5" fill="#88ccff">6 MISO</text>
+  <!-- J62 pin 7 = GND in connector, but not connected to ADAR1000 signals -->
+  <text x="295" y="444" text-anchor="middle" font-size="7" fill="#888888">7 GND</text>
+  <text x="295" y="458" text-anchor="middle" font-size="7" fill="#888888">8 VCC</text>
+
+  <!-- J63 connector block -->
+  <rect x="268" y="505" width="54" height="100" rx="4" fill="#2a2a4a" stroke="#8888ee" stroke-width="2"/>
+  <text x="295" y="522" text-anchor="middle" font-size="9" font-weight="bold" fill="#ccccff">PMOD</text>
+  <text x="295" y="535" text-anchor="middle" font-size="9" fill="#ccccff">J63</text>
+  <text x="295" y="547" text-anchor="middle" font-size="8" fill="#8888bb">Bank 13</text>
+  <!-- J63-1: GPIO5/PA_ON -->
+  <circle cx="322" cy="563" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="262" y="567" text-anchor="middle" font-size="7.5" fill="#ffcc88">1 PA_ON</text>
+  <!-- J63-2: SPI_CLK -->
+  <circle cx="322" cy="583" r="5" fill="#ffaa33" stroke="#cc7700" stroke-width="1.5"/>
+  <text x="262" y="587" text-anchor="middle" font-size="7.5" fill="#ffcc88">2 CLK</text>
+
+  <!-- ═══════════════════ ADAR1000 Board ═══════════════════ -->
+  <rect x="600" y="70" width="330" height="560" rx="12" fill="#1a3a6b" stroke="#0d2a4a" stroke-width="3"/>
+  <text x="765" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">ADAR1000 Eval Board</text>
+  <text x="765" y="112" text-anchor="middle" font-size="11" fill="#aaccff">Analog Devices 4-Ch Beamformer</text>
+
+  <!-- ADAR1000 IC block -->
+  <rect x="640" y="128" width="250" height="100" rx="5" fill="#0d2040" stroke="#4a7acc" stroke-width="1.5"/>
+  <text x="765" y="155" text-anchor="middle" font-size="11" fill="#4a7acc">ADAR1000BCBZ</text>
+  <text x="765" y="171" text-anchor="middle" font-size="9" fill="#7799cc">SPI: 3-wire + CS, up to 25 MHz</text>
+  <text x="765" y="185" text-anchor="middle" font-size="9" fill="#7799cc">4-ch phase shifter + VGA</text>
+  <text x="765" y="199" text-anchor="middle" font-size="9" fill="#7799cc">RX/TX mode, GPIO beam load</text>
+  <text x="765" y="213" text-anchor="middle" font-size="9" fill="#7799cc">X/Ku-band 8-16 GHz</text>
+
+  <!-- P3 connector on ADAR1000 (left side) -->
+  <rect x="600" y="258" width="54" height="350" rx="4" fill="#1a2a4a" stroke="#8888ee" stroke-width="2"/>
+  <text x="627" y="276" text-anchor="middle" font-size="9" font-weight="bold" fill="#ccccff">P3</text>
+  <text x="627" y="289" text-anchor="middle" font-size="8" fill="#8888bb">PMOD</text>
+
+  <!-- P3 pin dots (left side for wires) -->
+  <!-- P3-1 GPIO0/RX_LOAD -->
+  <circle cx="600" cy="320" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="662" y="324" font-size="7.5" fill="#ffcc88">1 GPIO0 (RX_LOAD)</text>
+  <!-- P3-2 SPI_SEL_A -->
+  <circle cx="600" cy="340" r="5" fill="#ff4444" stroke="#cc0000" stroke-width="1.5"/>
+  <text x="662" y="344" font-size="7.5" fill="#ffaaaa">2 SPI_SEL_A (~CS)</text>
+  <!-- P3-3 GPIO1/TX_LOAD -->
+  <circle cx="600" cy="360" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="662" y="364" font-size="7.5" fill="#ffcc88">3 GPIO1 (TX_LOAD)</text>
+  <!-- P3-4 SPI_MOSI -->
+  <circle cx="600" cy="380" r="5" fill="#33cc33" stroke="#007700" stroke-width="1.5"/>
+  <text x="662" y="384" font-size="7.5" fill="#88ff88">4 SPI_MOSI (SDIO)</text>
+  <!-- P3-5 GPIO4/TR -->
+  <circle cx="600" cy="400" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="662" y="404" font-size="7.5" fill="#ffcc88">5 GPIO4 (TR)</text>
+  <!-- P3-6 SPI_MISO -->
+  <circle cx="600" cy="420" r="5" fill="#3399ff" stroke="#0055cc" stroke-width="1.5"/>
+  <text x="662" y="424" font-size="7.5" fill="#88ccff">6 SPI_MISO (SDO)</text>
+  <!-- P3-7 GPIO5/PA_ON -->
+  <circle cx="600" cy="440" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="662" y="444" font-size="7.5" fill="#ffcc88">7 GPIO5 (PA_ON)</text>
+  <!-- P3-8 SPI_CLK -->
+  <circle cx="600" cy="460" r="5" fill="#ffaa33" stroke="#cc7700" stroke-width="1.5"/>
+  <text x="662" y="464" font-size="7.5" fill="#ffcc88">8 SPI_CLK (SCLK)</text>
+  <!-- P3-9 AGND -->
+  <circle cx="600" cy="480" r="4" fill="#777777" stroke="#333" stroke-width="1"/>
+  <text x="662" y="484" font-size="7.5" fill="#aaaaaa">9 AGND</text>
+  <!-- P3-10 AGND -->
+  <circle cx="600" cy="497" r="4" fill="#777777" stroke="#333" stroke-width="1"/>
+  <text x="662" y="501" font-size="7.5" fill="#aaaaaa">10 AGND</text>
+  <!-- P3-11 NC -->
+  <text x="662" y="518" font-size="7.5" fill="#666666">11 NC</text>
+  <!-- P3-12 NC -->
+  <text x="662" y="535" font-size="7.5" fill="#666666">12 NC</text>
+
+  <!-- ═══════════════════ Wires J62 ↔ P3 ═══════════════════ -->
+  <!-- GPIO0/RX_LOAD: orange -->
+  <line x1="327" y1="320" x2="595" y2="320" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="9,4"/>
+  <text x="460" y="315" text-anchor="middle" font-size="8" fill="#ff8800">GPIO0 / RX_LOAD</text>
+  <!-- SPI_SEL_A: red -->
+  <line x1="327" y1="340" x2="595" y2="340" stroke="#ff4444" stroke-width="2.5" stroke-dasharray="9,4"/>
+  <text x="460" y="335" text-anchor="middle" font-size="8" fill="#ff4444">SPI_SEL_A (~CS)</text>
+  <!-- GPIO1/TX_LOAD: orange -->
+  <line x1="327" y1="360" x2="595" y2="360" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="9,4"/>
+  <text x="460" y="355" text-anchor="middle" font-size="8" fill="#ff8800">GPIO1 / TX_LOAD</text>
+  <!-- SPI_MOSI: green -->
+  <line x1="327" y1="380" x2="595" y2="380" stroke="#22bb22" stroke-width="2.5" stroke-dasharray="9,4"/>
+  <text x="460" y="375" text-anchor="middle" font-size="8" fill="#22bb22">SPI_MOSI (SDIO)</text>
+  <!-- GPIO4/TR: orange -->
+  <line x1="327" y1="400" x2="595" y2="400" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="9,4"/>
+  <text x="460" y="395" text-anchor="middle" font-size="8" fill="#ff8800">GPIO4 / TR</text>
+  <!-- SPI_MISO: blue -->
+  <line x1="327" y1="420" x2="595" y2="420" stroke="#2288ff" stroke-width="2.5" stroke-dasharray="9,4"/>
+  <text x="460" y="415" text-anchor="middle" font-size="8" fill="#2288ff">SPI_MISO (SDO)</text>
+
+  <!-- ═══════════════════ Wires J63 ↔ P3 ═══════════════════ -->
+  <!-- Route J63 wires down to match P3-7 and P3-8 -->
+  <!-- GPIO5/PA_ON: orange from J63-1 to P3-7 -->
+  <!-- J63-1 is at y=563, P3-7 is at y=440 — route via a horizontal jog -->
+  <polyline points="327,563 500,563 500,440 595,440" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="9,4" fill="none"/>
+  <text x="500" y="555" text-anchor="middle" font-size="8" fill="#ff8800">GPIO5 / PA_ON</text>
+  <!-- SPI_CLK: orange/amber from J63-2 to P3-8 -->
+  <polyline points="327,583 510,583 510,460 595,460" stroke="#ffaa00" stroke-width="2.5" stroke-dasharray="9,4" fill="none"/>
+  <text x="510" y="575" text-anchor="middle" font-size="8" fill="#ffaa00">SPI_CLK (SCLK)</text>
+
+  <!-- ═══════════════════ Legend ═══════════════════ -->
+  <rect x="30" y="645" width="900" height="28" rx="5" fill="#e8eaf6" stroke="#9090b0" stroke-width="1"/>
+  <text x="48" y="661" font-size="9.5" font-weight="bold" fill="#333">Signal types:</text>
+  <line x1="135" y1="658" x2="165" y2="658" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="7,3"/>
+  <text x="170" y="662" font-size="9" fill="#333">GPIO (RX_LOAD / TX_LOAD / TR / PA_ON)</text>
+  <line x1="400" y1="658" x2="430" y2="658" stroke="#ff4444" stroke-width="2.5" stroke-dasharray="7,3"/>
+  <text x="435" y="662" font-size="9" fill="#333">SPI_SEL_A (~CS)</text>
+  <line x1="545" y1="658" x2="575" y2="658" stroke="#22bb22" stroke-width="2.5" stroke-dasharray="7,3"/>
+  <text x="580" y="662" font-size="9" fill="#333">MOSI</text>
+  <line x1="630" y1="658" x2="660" y2="658" stroke="#2288ff" stroke-width="2.5" stroke-dasharray="7,3"/>
+  <text x="665" y="662" font-size="9" fill="#333">MISO</text>
+  <line x1="715" y1="658" x2="745" y2="658" stroke="#ffaa00" stroke-width="2.5" stroke-dasharray="7,3"/>
+  <text x="750" y="662" font-size="9" fill="#333">SPI_CLK</text>
+</svg>

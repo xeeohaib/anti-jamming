@@ -104,16 +104,41 @@ anti-jamming/
 | Antenna Array | 4-element ULA (half-wavelength spacing at carrier) |
 | ADC | FMC-connected ADC with parallel LVDS/LVCMOS output |
 
-### ADAR1000 Connections (ZC702 PMOD JA1, J55)
+### Hardware Connection Diagram
 
-| PMOD Pin | Signal | ADAR1000 Pin |
-|----------|--------|--------------|
-| JA1-1    | SPI_CSN | ~CS |
-| JA1-2    | SPI_CLK | SCLK |
-| JA1-3    | SPI_MOSI | SDIO |
-| JA1-4    | SPI_MISO | SDO |
-| JA1-5    | GND | GND |
-| JA1-6    | 3.3V | VCC |
+The diagram below shows the ZC702 and ADAR1000 evaluation boards side-by-side
+with the colour-coded wires connecting PMOD J62/J63 to the ADAR1000 P3 connector.
+
+![ZC702 ↔ ADAR1000 board connection diagram](docs/zc702_adar1000_connection.svg)
+
+### Wiring Schematic
+
+The schematic below details the signal names, pin numbers, direction, and
+corresponding IC pins for every connection between the ZC702 and the
+ADAR1000 evaluation board.
+
+![ZC702 ↔ ADAR1000 schematic diagram](docs/schematic.svg)
+
+### ADAR1000 Connections — P3 Peripheral Module-Compatible Interface
+
+The ADAR1000 evaluation board exposes a 12-pin **P3** PMOD-compatible
+header. Connect P3's top row (pins 1–6) to ZC702 **J62** and the bottom
+row (pins 7–12) to ZC702 **J63** (both Bank 13, LVCMOS33).
+
+| P3 Pin | Signal | Direction | ZC702 Connector | Description |
+|--------|--------|-----------|-----------------|-------------|
+| P3-1   | GPIO0 (RX_LOAD) | FPGA → ADAR | J62 pin 1 | Latch RX beam registers |
+| P3-2   | SPI_SEL_A (~CS) | FPGA → ADAR | J62 pin 2 | SPI chip select (active low) |
+| P3-3   | GPIO1 (TX_LOAD) | FPGA → ADAR | J62 pin 3 | Latch TX beam registers |
+| P3-4   | SPI_MOSI        | FPGA → ADAR | J62 pin 4 | SPI master-out slave-in (SDIO) |
+| P3-5   | GPIO4 (TR)      | FPGA → ADAR | J62 pin 5 | Transmit/Receive switch |
+| P3-6   | SPI_MISO        | ADAR → FPGA | J62 pin 6 | SPI master-in slave-out (SDO) |
+| P3-7   | GPIO5 (PA_ON)   | FPGA → ADAR | J63 pin 1 | Power amplifier enable |
+| P3-8   | SPI_CLK         | FPGA → ADAR | J63 pin 2 | SPI clock (SCLK) |
+| P3-9   | AGND            | —           | J63 pin 3 | Analog ground |
+| P3-10  | AGND            | —           | J63 pin 4 | Analog ground |
+| P3-11  | No connect      | —           | —         | — |
+| P3-12  | No connect      | —           | —         | — |
 
 ### ADC Connections (ZC702 FMC LPC, J64)
 
@@ -266,6 +291,7 @@ Base address: `0x43C00000` (configurable in Vivado block design)
 | 0x24 | W0_IM | RO | Weight[0] imaginary part (Q16) |
 | ... | ... | ... | Weights for channels 1-3 at +0x08 offsets |
 | 0x40 | VERSION | RO | Build version (0x00010000 = v1.0) |
+| 0x44 | GPIO_CTRL | R/W | [0]=GPIO0/RX_LOAD, [1]=GPIO1/TX_LOAD, [2]=GPIO4/TR, [3]=GPIO5/PA_ON |
 
 ---
 

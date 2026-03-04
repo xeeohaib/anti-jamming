@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 780" width="920" height="780" font-family="monospace, Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="920" height="780" fill="#ffffff" rx="8" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="460" y="34" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">ZC702 ↔ ADAR1000 Connection Schematic</text>
+  <text x="460" y="52" text-anchor="middle" font-size="11" fill="#555">PMOD J62 (P3 top row) and J63 (P3 bottom row) — LVCMOS33 Bank 13</text>
+
+  <!-- ══════════════ Left Block: ZC702 ══════════════ -->
+  <rect x="20" y="65" width="245" height="630" rx="8" fill="#f0fff4" stroke="#2d8a4e" stroke-width="2"/>
+  <text x="143" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a5c30">ZC702 (Zynq-7000)</text>
+  <text x="143" y="101" text-anchor="middle" font-size="9" fill="#2d8a4e">XC7Z020-CLG484-1</text>
+
+  <!-- PS block -->
+  <rect x="36" y="112" width="213" height="95" rx="4" fill="#c8f5d8" stroke="#2d8a4e" stroke-width="1.5"/>
+  <text x="143" y="130" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a5c30">PS — ARM Cortex-A9</text>
+  <text x="143" y="146" text-anchor="middle" font-size="8.5" fill="#2d8a4e">main.c / adar1000_driver.c</text>
+  <text x="143" y="160" text-anchor="middle" font-size="8.5" fill="#2d8a4e">platform_spi_write/read()</text>
+  <text x="143" y="174" text-anchor="middle" font-size="8.5" fill="#2d8a4e">platform_gpio_ctrl(mask)</text>
+  <text x="143" y="188" text-anchor="middle" font-size="8" fill="#2d8a4e">GPIO_RX_LOAD / TX_LOAD / TR / PA_ON</text>
+  <text x="143" y="200" text-anchor="middle" font-size="8" fill="#2d8a4e">AXI 0x43C00000 + REG_GPIO_CTRL (0x44)</text>
+
+  <!-- AXI arrow -->
+  <line x1="143" y1="207" x2="143" y2="228" stroke="#2d8a4e" stroke-width="1.5" marker-end="url(#ag)"/>
+  <text x="155" y="222" font-size="8" fill="#2d8a4e">AXI4-Lite</text>
+
+  <!-- PL block -->
+  <rect x="36" y="230" width="213" height="105" rx="4" fill="#c8f5d8" stroke="#2d8a4e" stroke-width="1.5"/>
+  <text x="143" y="249" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a5c30">PL — FPGA Fabric</text>
+  <text x="143" y="264" text-anchor="middle" font-size="8.5" fill="#2d8a4e">adar1000_spi.v — SPI master</text>
+  <text x="143" y="278" text-anchor="middle" font-size="8.5" fill="#2d8a4e">axi_lite_slave.v — reg 0x44</text>
+  <text x="143" y="292" text-anchor="middle" font-size="8.5" fill="#2d8a4e">gpio_ctrl[3:0] register</text>
+  <text x="143" y="306" text-anchor="middle" font-size="8.5" fill="#2d8a4e">top_null_steering.v ports:</text>
+  <text x="143" y="320" text-anchor="middle" font-size="8" fill="#2d8a4e">spi_csn/clk/mosi/miso + gpio0..5</text>
+
+  <!-- SPI/GPIO arrow PL → PMOD -->
+  <line x1="143" y1="335" x2="143" y2="358" stroke="#2d8a4e" stroke-width="1.5" marker-end="url(#ag)"/>
+
+  <!-- J62 header block -->
+  <rect x="36" y="360" width="213" height="185" rx="4" fill="#e8f5fe" stroke="#2255aa" stroke-width="2"/>
+  <text x="143" y="378" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a3a7a">J62 (ZC702 PMOD, P3 top row)</text>
+  <text x="143" y="391" text-anchor="middle" font-size="8" fill="#555">Bank 13 · LVCMOS33 · 3.3 V</text>
+
+  <!-- J62 pin table headers -->
+  <text x="52" y="408" font-size="8.5" font-weight="bold" fill="#333">Pin</text>
+  <text x="80" y="408" font-size="8.5" font-weight="bold" fill="#333">ZC702 net</text>
+  <text x="165" y="408" font-size="8.5" font-weight="bold" fill="#333">PKG_PIN</text>
+  <text x="215" y="408" font-size="8.5" font-weight="bold" fill="#333">Dir</text>
+
+  <!-- J62 rows with colour dots -->
+  <!-- Row 1: GPIO0/RX_LOAD -->
+  <rect x="42" y="413" width="200" height="15" rx="2" fill="#fff5e6"/><circle cx="247" cy="420.5" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="52" y="424" font-size="8" fill="#aa5500">1</text><text x="80" y="424" font-size="8" fill="#aa5500">GPIO0 (RX_LOAD)</text><text x="165" y="424" font-size="8" fill="#aa5500">AB8</text><text x="215" y="424" font-size="8" fill="#aa5500">OUT</text>
+  <!-- Row 2: SPI_SEL_A -->
+  <rect x="42" y="428" width="200" height="15" rx="2" fill="#fff0f0"/><circle cx="247" cy="435.5" r="5" fill="#ff4444" stroke="#cc0000" stroke-width="1.5"/>
+  <text x="52" y="439" font-size="8" fill="#cc0000">2</text><text x="80" y="439" font-size="8" fill="#cc0000">SPI_SEL_A (~CS)</text><text x="165" y="439" font-size="8" fill="#cc0000">AA7</text><text x="215" y="439" font-size="8" fill="#cc0000">OUT</text>
+  <!-- Row 3: GPIO1/TX_LOAD -->
+  <rect x="42" y="443" width="200" height="15" rx="2" fill="#fff5e6"/><circle cx="247" cy="450.5" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="52" y="454" font-size="8" fill="#aa5500">3</text><text x="80" y="454" font-size="8" fill="#aa5500">GPIO1 (TX_LOAD)</text><text x="165" y="454" font-size="8" fill="#aa5500">AB7</text><text x="215" y="454" font-size="8" fill="#aa5500">OUT</text>
+  <!-- Row 4: SPI_MOSI -->
+  <rect x="42" y="458" width="200" height="15" rx="2" fill="#f0fff0"/><circle cx="247" cy="465.5" r="5" fill="#22bb22" stroke="#007700" stroke-width="1.5"/>
+  <text x="52" y="469" font-size="8" fill="#007700">4</text><text x="80" y="469" font-size="8" fill="#007700">SPI_MOSI (SDIO)</text><text x="165" y="469" font-size="8" fill="#007700">AB6</text><text x="215" y="469" font-size="8" fill="#007700">OUT</text>
+  <!-- Row 5: GPIO4/TR -->
+  <rect x="42" y="473" width="200" height="15" rx="2" fill="#fff5e6"/><circle cx="247" cy="480.5" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="52" y="484" font-size="8" fill="#aa5500">5</text><text x="80" y="484" font-size="8" fill="#aa5500">GPIO4 (TR)</text><text x="165" y="484" font-size="8" fill="#aa5500">Y9</text><text x="215" y="484" font-size="8" fill="#aa5500">OUT</text>
+  <!-- Row 6: SPI_MISO -->
+  <rect x="42" y="488" width="200" height="15" rx="2" fill="#f0f4ff"/><circle cx="247" cy="495.5" r="5" fill="#2288ff" stroke="#0044bb" stroke-width="1.5"/>
+  <text x="52" y="499" font-size="8" fill="#0044bb">6</text><text x="80" y="499" font-size="8" fill="#0044bb">SPI_MISO (SDO)</text><text x="165" y="499" font-size="8" fill="#0044bb">AA6</text><text x="215" y="499" font-size="8" fill="#0044bb">IN</text>
+  <!-- Row GND/VCC note -->
+  <text x="52" y="516" font-size="7.5" fill="#888">7 GND  8 VCC (3.3V) — not connected to P3</text>
+  <text x="52" y="530" font-size="7.5" fill="#888">Note: verify PKG_PINs against your ZC702 schematic</text>
+
+  <!-- J63 header block -->
+  <rect x="36" y="560" width="213" height="120" rx="4" fill="#e8f5fe" stroke="#2255aa" stroke-width="2"/>
+  <text x="143" y="578" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a3a7a">J63 (ZC702 PMOD, P3 bottom row)</text>
+  <text x="143" y="591" text-anchor="middle" font-size="8" fill="#555">Bank 13 · LVCMOS33 · 3.3 V</text>
+
+  <!-- J63 pin table headers -->
+  <text x="52" y="606" font-size="8.5" font-weight="bold" fill="#333">Pin</text>
+  <text x="80" y="606" font-size="8.5" font-weight="bold" fill="#333">ZC702 net</text>
+  <text x="165" y="606" font-size="8.5" font-weight="bold" fill="#333">PKG_PIN</text>
+  <text x="215" y="606" font-size="8.5" font-weight="bold" fill="#333">Dir</text>
+  <!-- Row 1: GPIO5/PA_ON -->
+  <rect x="42" y="610" width="200" height="15" rx="2" fill="#fff5e6"/><circle cx="247" cy="617.5" r="5" fill="#ff8800" stroke="#cc5500" stroke-width="1.5"/>
+  <text x="52" y="621" font-size="8" fill="#aa5500">1</text><text x="80" y="621" font-size="8" fill="#aa5500">GPIO5 (PA_ON)</text><text x="165" y="621" font-size="8" fill="#aa5500">Y8</text><text x="215" y="621" font-size="8" fill="#aa5500">OUT</text>
+  <!-- Row 2: SPI_CLK -->
+  <rect x="42" y="625" width="200" height="15" rx="2" fill="#fff8e8"/><circle cx="247" cy="632.5" r="5" fill="#ffaa00" stroke="#aa6600" stroke-width="1.5"/>
+  <text x="52" y="636" font-size="8" fill="#aa6600">2</text><text x="80" y="636" font-size="8" fill="#aa6600">SPI_CLK (SCLK)</text><text x="165" y="636" font-size="8" fill="#aa6600">AA5</text><text x="215" y="636" font-size="8" fill="#aa6600">OUT</text>
+  <!-- GND/NC rows -->
+  <text x="52" y="653" font-size="7.5" fill="#888">3 GND   4 GND   5–6 (VCC/NC)</text>
+
+  <!-- ══════════════ Wires (centre) ══════════════ -->
+  <!-- J62-1 GPIO0/RX_LOAD orange -->
+  <line x1="252" y1="420.5" x2="668" y2="420.5" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- J62-2 SPI_SEL_A red -->
+  <line x1="252" y1="435.5" x2="668" y2="435.5" stroke="#ff4444" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- J62-3 GPIO1/TX_LOAD orange -->
+  <line x1="252" y1="450.5" x2="668" y2="450.5" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- J62-4 SPI_MOSI green -->
+  <line x1="252" y1="465.5" x2="668" y2="465.5" stroke="#22bb22" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- J62-5 GPIO4/TR orange -->
+  <line x1="252" y1="480.5" x2="668" y2="480.5" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- J62-6 SPI_MISO blue -->
+  <line x1="252" y1="495.5" x2="668" y2="495.5" stroke="#2288ff" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <!-- J63-1 GPIO5/PA_ON orange (routed via jog) -->
+  <polyline points="252,617.5 460,617.5 460,542.5 668,542.5" stroke="#ff8800" stroke-width="2.5" stroke-dasharray="10,5" fill="none"/>
+  <!-- J63-2 SPI_CLK amber -->
+  <polyline points="252,632.5 470,632.5 470,557.5 668,557.5" stroke="#ffaa00" stroke-width="2.5" stroke-dasharray="10,5" fill="none"/>
+
+  <!-- Centre label box -->
+  <rect x="345" y="408" width="178" height="135" rx="5" fill="#f7f9ff" stroke="#aaa" stroke-width="1"/>
+  <text x="434" y="422" text-anchor="middle" font-size="8.5" font-weight="bold" fill="#333">Wire connections</text>
+  <text x="434" y="435" text-anchor="middle" font-size="7.5" fill="#aa5500">— GPIO0/RX_LOAD</text>
+  <text x="434" y="447" text-anchor="middle" font-size="7.5" fill="#cc0000">— SPI_SEL_A (~CS)</text>
+  <text x="434" y="459" text-anchor="middle" font-size="7.5" fill="#aa5500">— GPIO1/TX_LOAD</text>
+  <text x="434" y="471" text-anchor="middle" font-size="7.5" fill="#007700">— SPI_MOSI (SDIO)</text>
+  <text x="434" y="483" text-anchor="middle" font-size="7.5" fill="#aa5500">— GPIO4/TR</text>
+  <text x="434" y="495" text-anchor="middle" font-size="7.5" fill="#0044bb">— SPI_MISO (SDO)</text>
+  <text x="434" y="507" text-anchor="middle" font-size="7.5" fill="#aa5500">— GPIO5/PA_ON</text>
+  <text x="434" y="519" text-anchor="middle" font-size="7.5" fill="#aa6600">— SPI_CLK (SCLK)</text>
+  <line x1="345" y1="528" x2="523" y2="528" stroke="#ccc" stroke-width="0.5"/>
+  <text x="434" y="538" text-anchor="middle" font-size="7" fill="#888">P3-9,10 = AGND (to GND)</text>
+  <text x="434" y="549" text-anchor="middle" font-size="7" fill="#888">P3-11,12 = No Connect</text>
+
+  <!-- ══════════════ Right Block: ADAR1000 ══════════════ -->
+  <rect x="668" y="65" width="232" height="630" rx="8" fill="#f0f4ff" stroke="#2244aa" stroke-width="2"/>
+  <text x="784" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a2a6b">ADAR1000 Eval Board</text>
+  <text x="784" y="101" text-anchor="middle" font-size="9" fill="#2244aa">Analog Devices ADAR1000BCBZ</text>
+
+  <!-- SPI block -->
+  <rect x="684" y="112" width="200" height="90" rx="4" fill="#dde8ff" stroke="#2244aa" stroke-width="1.5"/>
+  <text x="784" y="130" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2a6b">SPI Interface</text>
+  <text x="784" y="145" text-anchor="middle" font-size="8.5" fill="#2244aa">CSB, SCLK, SDIO, SDO</text>
+  <text x="784" y="159" text-anchor="middle" font-size="8.5" fill="#2244aa">3-wire + CS, max 25 MHz</text>
+  <text x="784" y="173" text-anchor="middle" font-size="8.5" fill="#2244aa">16-bit transactions</text>
+  <text x="784" y="187" text-anchor="middle" font-size="8.5" fill="#2244aa">7-bit address space</text>
+
+  <!-- Arrow SPI → BF core -->
+  <line x1="784" y1="202" x2="784" y2="225" stroke="#2244aa" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- Beamformer core block -->
+  <rect x="684" y="227" width="200" height="90" rx="4" fill="#dde8ff" stroke="#2244aa" stroke-width="1.5"/>
+  <text x="784" y="245" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2a6b">Beamformer Core</text>
+  <text x="784" y="260" text-anchor="middle" font-size="8.5" fill="#2244aa">4-ch phase shifter + VGA</text>
+  <text x="784" y="274" text-anchor="middle" font-size="8.5" fill="#2244aa">RX/TX mode via TR gpio</text>
+  <text x="784" y="288" text-anchor="middle" font-size="8.5" fill="#2244aa">Beam load via RX/TX_LOAD</text>
+  <text x="784" y="302" text-anchor="middle" font-size="8.5" fill="#2244aa">PA enabled via PA_ON gpio</text>
+
+  <!-- P3 pin table on ADAR1000 -->
+  <rect x="684" y="338" width="200" height="330" rx="4" fill="#e8eeff" stroke="#2244aa" stroke-width="2"/>
+  <text x="784" y="355" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2a6b">P3 Connector Pinout</text>
+  <text x="784" y="368" text-anchor="middle" font-size="8" fill="#2244aa">Peripheral Module-Compatible Interface</text>
+
+  <!-- P3 table header -->
+  <text x="696" y="383" font-size="8" font-weight="bold" fill="#333">Pin</text>
+  <text x="716" y="383" font-size="8" font-weight="bold" fill="#333">Signal</text>
+  <text x="800" y="383" font-size="8" font-weight="bold" fill="#333">IC pin</text>
+
+  <!-- P3-1 -->
+  <rect x="690" y="387" width="190" height="14" rx="1" fill="#fff5e6"/>
+  <circle cx="688" cy="394" r="4" fill="#ff8800" stroke="#cc5500" stroke-width="1.2"/>
+  <text x="696" y="398" font-size="7.5" fill="#aa5500">1</text><text x="716" y="398" font-size="7.5" fill="#aa5500">GPIO0 (RX_LOAD)</text><text x="800" y="398" font-size="7.5" fill="#aa5500">GPIO0</text>
+  <!-- P3-2 -->
+  <rect x="690" y="401" width="190" height="14" rx="1" fill="#fff0f0"/>
+  <circle cx="688" cy="408" r="4" fill="#ff4444" stroke="#cc0000" stroke-width="1.2"/>
+  <text x="696" y="412" font-size="7.5" fill="#cc0000">2</text><text x="716" y="412" font-size="7.5" fill="#cc0000">SPI_SEL_A (~CS)</text><text x="800" y="412" font-size="7.5" fill="#cc0000">CSB</text>
+  <!-- P3-3 -->
+  <rect x="690" y="415" width="190" height="14" rx="1" fill="#fff5e6"/>
+  <circle cx="688" cy="422" r="4" fill="#ff8800" stroke="#cc5500" stroke-width="1.2"/>
+  <text x="696" y="426" font-size="7.5" fill="#aa5500">3</text><text x="716" y="426" font-size="7.5" fill="#aa5500">GPIO1 (TX_LOAD)</text><text x="800" y="426" font-size="7.5" fill="#aa5500">GPIO1</text>
+  <!-- P3-4 -->
+  <rect x="690" y="429" width="190" height="14" rx="1" fill="#f0fff0"/>
+  <circle cx="688" cy="436" r="4" fill="#22bb22" stroke="#007700" stroke-width="1.2"/>
+  <text x="696" y="440" font-size="7.5" fill="#007700">4</text><text x="716" y="440" font-size="7.5" fill="#007700">SPI_MOSI (SDIO)</text><text x="800" y="440" font-size="7.5" fill="#007700">SDIO</text>
+  <!-- P3-5 -->
+  <rect x="690" y="443" width="190" height="14" rx="1" fill="#fff5e6"/>
+  <circle cx="688" cy="450" r="4" fill="#ff8800" stroke="#cc5500" stroke-width="1.2"/>
+  <text x="696" y="454" font-size="7.5" fill="#aa5500">5</text><text x="716" y="454" font-size="7.5" fill="#aa5500">GPIO4 (TR)</text><text x="800" y="454" font-size="7.5" fill="#aa5500">GPIO4</text>
+  <!-- P3-6 -->
+  <rect x="690" y="457" width="190" height="14" rx="1" fill="#f0f4ff"/>
+  <circle cx="688" cy="464" r="4" fill="#2288ff" stroke="#0044bb" stroke-width="1.2"/>
+  <text x="696" y="468" font-size="7.5" fill="#0044bb">6</text><text x="716" y="468" font-size="7.5" fill="#0044bb">SPI_MISO (SDO)</text><text x="800" y="468" font-size="7.5" fill="#0044bb">SDO</text>
+  <!-- P3-7 -->
+  <rect x="690" y="471" width="190" height="14" rx="1" fill="#fff5e6"/>
+  <circle cx="688" cy="478" r="4" fill="#ff8800" stroke="#cc5500" stroke-width="1.2"/>
+  <text x="696" y="482" font-size="7.5" fill="#aa5500">7</text><text x="716" y="482" font-size="7.5" fill="#aa5500">GPIO5 (PA_ON)</text><text x="800" y="482" font-size="7.5" fill="#aa5500">GPIO5</text>
+  <!-- P3-8 -->
+  <rect x="690" y="485" width="190" height="14" rx="1" fill="#fff8e8"/>
+  <circle cx="688" cy="492" r="4" fill="#ffaa00" stroke="#aa6600" stroke-width="1.2"/>
+  <text x="696" y="496" font-size="7.5" fill="#aa6600">8</text><text x="716" y="496" font-size="7.5" fill="#aa6600">SPI_CLK (SCLK)</text><text x="800" y="496" font-size="7.5" fill="#aa6600">SCLK</text>
+  <!-- P3-9 -->
+  <rect x="690" y="499" width="190" height="14" rx="1" fill="#f5f5f5"/>
+  <text x="696" y="510" font-size="7.5" fill="#777">9</text><text x="716" y="510" font-size="7.5" fill="#777">AGND</text><text x="800" y="510" font-size="7.5" fill="#777">AGND</text>
+  <!-- P3-10 -->
+  <rect x="690" y="513" width="190" height="14" rx="1" fill="#f5f5f5"/>
+  <text x="696" y="524" font-size="7.5" fill="#777">10</text><text x="716" y="524" font-size="7.5" fill="#777">AGND</text><text x="800" y="524" font-size="7.5" fill="#777">AGND</text>
+  <!-- P3-11 -->
+  <rect x="690" y="527" width="190" height="14" rx="1" fill="#f9f9f9"/>
+  <text x="696" y="538" font-size="7.5" fill="#999">11</text><text x="716" y="538" font-size="7.5" fill="#999">No Connect</text>
+  <!-- P3-12 -->
+  <rect x="690" y="541" width="190" height="14" rx="1" fill="#f9f9f9"/>
+  <text x="696" y="552" font-size="7.5" fill="#999">12</text><text x="716" y="552" font-size="7.5" fill="#999">No Connect</text>
+
+  <!-- note under table -->
+  <text x="784" y="575" text-anchor="middle" font-size="8" fill="#555">Top row (pins 1–6) → J62</text>
+  <text x="784" y="588" text-anchor="middle" font-size="8" fill="#555">Bottom row (pins 7–12) → J63</text>
+  <text x="784" y="601" text-anchor="middle" font-size="7.5" fill="#888">Alternating GPIO / SPI layout</text>
+  <text x="784" y="614" text-anchor="middle" font-size="7.5" fill="#888">GPIO pins driven from AXI 0x44</text>
+
+  <!-- ══════════════ Bottom note ══════════════ -->
+  <rect x="20" y="710" width="880" height="60" rx="5" fill="#f0f8ff" stroke="#9090b0" stroke-width="1"/>
+  <text x="460" y="728" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#333">ADC Interface (FMC LPC J64) — 4-Channel Antenna Array</text>
+  <text x="460" y="745" text-anchor="middle" font-size="9" fill="#555">ADAR1000 CH0–CH3 RF ports → 4-element ULA (λ/2 spacing) → FMC LA00–LA11 LVDS → signal_acquisition.v</text>
+  <text x="460" y="760" text-anchor="middle" font-size="8.5" fill="#888">See constraints/zc702_pins.xdc for full FMC pin assignments</text>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="ag" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#2d8a4e"/>
+    </marker>
+    <marker id="ab" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#2244aa"/>
+    </marker>
+  </defs>
+</svg>
