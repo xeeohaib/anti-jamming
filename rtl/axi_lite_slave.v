@@ -15,8 +15,10 @@
 //   0x14: SPI_CTRL    - [0]=SPI start, [8]=R/W, [15:9]=address, [23:16]=write data
 //   0x18: SPI_STATUS  - [0]=SPI busy, [1]=SPI done
 //   0x1C: SPI_RDATA   - SPI read data [7:0]
-//   0x20-0x5C: WEIGHT_OUT[0..3] real/imag pairs (read-only, 32-bit each)
-//   0x60: VERSION     - Build version (read-only)
+//   0x20-0x3C: WEIGHT_OUT[0..3] real/imag pairs (read-only, 32-bit each)
+//   0x40: VERSION     - Build version (read-only)
+//   0x44: GPIO_CTRL   - [0]=GPIO0/RX_LOAD, [1]=GPIO1/TX_LOAD,
+//                       [2]=GPIO4/TR, [3]=GPIO5/PA_ON (P3 connector)
 // =============================================================================
 
 `timescale 1ns / 1ps
@@ -72,6 +74,10 @@ module axi_lite_slave #(
     output reg  [6:0]                spi_addr,
     output reg  [7:0]                spi_wdata,
 
+    // GPIO control outputs: ADAR1000 P3 connector GPIO signals
+    // [0]=GPIO0/RX_LOAD, [1]=GPIO1/TX_LOAD, [2]=GPIO4/TR, [3]=GPIO5/PA_ON
+    output reg  [3:0]                gpio_ctrl,
+
     // Status inputs from PL logic
     input  wire                      status_capture_done,
     input  wire                      status_cov_valid,
@@ -112,6 +118,7 @@ module axi_lite_slave #(
     localparam ADDR_W3_RE       = 7'h38;
     localparam ADDR_W3_IM       = 7'h3C;
     localparam ADDR_VERSION     = 7'h40;
+    localparam ADDR_GPIO_CTRL   = 7'h44;
 
     localparam VERSION_NUM      = 32'h0001_0000;  // v1.0
 
@@ -142,6 +149,9 @@ module axi_lite_slave #(
             spi_rw               <= 1'b0;
             spi_addr             <= 7'h00;
             spi_wdata            <= 8'h00;
+            gpio_ctrl            <= 4'b0000;
+            // Reset defaults: RX_LOAD=0, TX_LOAD=0, TR=0 (receive mode),
+            // PA_ON=0 (power amplifier off — safe power-on state).
         end else begin
             // Auto-clear pulse signals
             ctrl_start_capture   <= 1'b0;
@@ -181,6 +191,7 @@ module axi_lite_slave #(
                         spi_addr  <= s_axi_wdata[15:9];
                         spi_wdata <= s_axi_wdata[23:16];
                     end
+                    ADDR_GPIO_CTRL: gpio_ctrl <= s_axi_wdata[3:0];
                     default: ; // Ignore writes to read-only registers
                 endcase
 
@@ -242,6 +253,7 @@ module axi_lite_slave #(
                     ADDR_W3_RE:       s_axi_rdata <= weight_re_3;
                     ADDR_W3_IM:       s_axi_rdata <= weight_im_3;
                     ADDR_VERSION:     s_axi_rdata <= VERSION_NUM;
+                    ADDR_GPIO_CTRL:   s_axi_rdata <= {28'b0, gpio_ctrl};
                     default:          s_axi_rdata <= 32'hDEAD_BEEF;
                 endcase
             end else begin
