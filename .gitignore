@@ -1,0 +1,39 @@
+# Object files and build artifacts
+*.o
+*.a
+*.so
+*.elf
+
+# Vivado project files (generated)
+*.xpr
+*.bit
+*.bin
+*.mcs
+*.xdc.bak
+*.log
+*.jou
+
+# Simulation output
+*.vcd
+*.fst
+*.lxt
+*.ghw
+/work/
+/sim_build/
+
+# Xilinx SDK / Vitis
+*.sdk
+*.runs/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Editor files
+*.swp
+*~
+.DS_Store
